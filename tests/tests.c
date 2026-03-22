@@ -6,6 +6,7 @@
 
 #include <test/test.h>
 #include "defertests.h"
+#include "strtests.h"
 
 static bool basic_test(test__log_t *log) {
     test__log_inform(log, "This is INFO");
@@ -26,11 +27,20 @@ static const test__test_t g_tests[] = {
     { .category = "Defer", .name = "Stack Growth",   .fn = deftest_stack_growth },
 
     // String tests
-    // TODO
+    { .category = "String", .name = "New ASCII",      .fn = strtest_new_ascii },
+    { .category = "String", .name = "New UTF-8",      .fn = strtest_new_utf8 },
+    { .category = "String", .name = "Push C String",  .fn = strtest_push_c_str },
+    { .category = "String", .name = "Append",         .fn = strtest_append },
+    { .category = "String", .name = "Pop",            .fn = strtest_pop },
+    { .category = "String", .name = "Remove At",      .fn = strtest_remove_at },
+    { .category = "String", .name = "Insert",         .fn = strtest_insert },
+    { .category = "String", .name = "Chars Decode",   .fn = strtest_chars_decode },
+    { .category = "String", .name = "Invalid UTF-8",  .fn = strtest_invalid_utf8 },
 };
 
 int main(int argc, const char **argv) {
     test__args_t *args = test__args_parse(argc, argv);
     test__run_all(g_tests, sizeof(g_tests) / sizeof(test__test_t), args);
     test__args_delete(args);
+    free(args);
 }
