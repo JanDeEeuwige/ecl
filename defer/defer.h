@@ -8,6 +8,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Override this to use an older version of the library
+#ifndef DEFER__API_VERS
+#define DEFER__API_VERS     1
+#endif
+
 // -------- Helper Macros --------
 
 #ifndef DEFER__INIT_CAP

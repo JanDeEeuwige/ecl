@@ -10,6 +10,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Override this to use an older version of the library
+#ifndef STR__API_VERS
+#define STR__API_VERS       1
+#endif
+
 // Way to represent a UTF-8 character
 typedef uint32_t str__char_t;
 
