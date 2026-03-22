@@ -76,17 +76,19 @@ static inline void test__log_delete(test__log_t *log) {
         free(log->full_test_name);
         log->full_test_name = NULL;
     }
-    log->num_msgs = 0;
     if (log->msgs) {
-        for (size_t i = 0; i < log->max_msgs; i++) {
-            if (log->msgs[0]) {
-                test__msg_delete(log->msgs[0]);
+        for (size_t i = 0; i < log->num_msgs; i++) {
+            if (log->msgs[i]) {
+                test__msg_delete(log->msgs[i]);
+                free(log->msgs[i]);
+                log->msgs[i] = NULL;
             }
-            free(log->msgs[0]);
-            log->msgs[0] = NULL;
         }
-        log->max_msgs = 0;
+        free(log->msgs);
+        log->msgs = NULL;
     }
+    log->num_msgs = 0;
+    log->max_msgs = 0;
 }
 
 static inline void test__log_resize_if_cant_append(test__log_t *log) {
